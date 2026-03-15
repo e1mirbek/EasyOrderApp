@@ -3,5 +3,13 @@
   "loginTitle": "Войдите в свой аккаунт",
   "@loginTitle": {},
   "loginSubtitle": "Откройте для себя эксклюзивные мировые предложения.",
-  "@loginSubtitle": {}
+  "@loginSubtitle": {},
+  "emailLabel": "Электронная почта",
+  "@emailLabel": {},
+  "passwordLabel": "Пароль",
+  "@passwordLabel": {},
+  "emailHint": "Введите вашу почту",
+  "@emailHint": {},
+  "passwordHint": "Введите пароль",
+  "@passwordHint": {}
 }

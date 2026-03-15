@@ -6,10 +6,16 @@ import 'package:flutter/material.dart';
 class LabeledTextField extends StatelessWidget {
   final String label;
   final String hintText;
+  final String prefixIcon;
+  final Widget? suffixIcon;
+  final bool obscureText;
   const LabeledTextField({
     super.key,
     required this.label,
     required this.hintText,
+    required this.prefixIcon,
+    this.suffixIcon,
+    this.obscureText = false,
   });
 
   @override
@@ -19,7 +25,12 @@ class LabeledTextField extends StatelessWidget {
       children: [
         Text(label, style: AppTextStyles.fieldLabel),
         const SizedBox(height: AppSizes.spaceSmall),
-        CustomTextField(labelText: hintText),
+        CustomTextField(
+          labelText: hintText,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          obscureText: obscureText,
+        ),
       ],
     );
   }

@@ -5,8 +5,15 @@ import 'package:easy_order/generated/l10n.dart';
 import 'package:easy_order/views/widgets/labeled_text_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +34,33 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: AppSizes.spaceSmall),
                         _buildIllustration(),
                         const SizedBox(height: AppSizes.spaceSmall),
+
+                        /// email block
                         LabeledTextField(
                           label: S.of(context).emailLabel,
                           hintText: S.of(context).emailHint,
+                          prefixIcon: AppAssets.emaiIcon,
                         ),
                         const SizedBox(height: AppSizes.spaceSmall),
+
+                        /// password block
                         LabeledTextField(
                           label: S.of(context).passwordLabel,
                           hintText: S.of(context).passwordHint,
+                          prefixIcon: AppAssets.passwordIcon,
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+                            icon: Icon(
+                              _isObscure
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                            ),
+                          ),
+                          obscureText: _isObscure,
                         ),
                       ],
                     ),

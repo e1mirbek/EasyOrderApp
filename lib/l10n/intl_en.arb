@@ -3,5 +3,17 @@
   "loginTitle": "Welcome back!",
   "@loginTitle": {},
   "loginSubtitle": "Discover exclusive global deals.",
-  "@loginSubtitle": {}
+  "@loginSubtitle": {},
+  "emailLabel": "Email",
+  "@emailLabel": {},
+  "passwordLabel": "Password",
+  "@passwordLabel": {},
+  "emailHint": "Enter your email",
+  "@emailHint": {
+    "description": "Placeholder text for email input field"
+  },
+  "passwordHint": "Enter your password",
+  "@passwordHint": {
+    "description": "Placeholder text for password input field"
+  }
 }

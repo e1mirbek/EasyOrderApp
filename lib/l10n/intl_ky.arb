@@ -3,5 +3,13 @@
   "loginTitle": "Аккаунтуңузга кириңиз",
   "@loginTitle": {},
   "loginSubtitle": "Дүйнөлүк өзгөчө сунуштарды өзүңүз үчүн ачыңыз.",
-  "@loginSubtitle": {}
+  "@loginSubtitle": {},
+  "emailLabel": "Электрондук почта",
+  "@emailLabel": {},
+  "passwordLabel": "Сырсөз",
+  "@passwordLabel": {},
+  "emailHint": "Электрондук почтаңызды киргизиңиз",
+  "@emailHint": {},
+  "passwordHint": "Сырсөздү киргизиңиз",
+  "@passwordHint": {}
 }

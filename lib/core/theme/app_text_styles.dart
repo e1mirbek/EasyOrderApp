@@ -24,8 +24,17 @@ class AppTextStyles {
 
   static final inputLabel = GoogleFonts.getFont(
     'Nunito Sans',
-    color: Color(0xFF7F909F),
+    color: AppColors.inputLabel,
     fontSize: 14,
+    letterSpacing: 0.1,
+    height: 1.7,
+  );
+
+  static final buttontitle = GoogleFonts.getFont(
+    'Nunito Sans',
+    color: AppColors.white,
+    fontSize: 18.0,
+    fontWeight: FontWeight.w700,
     letterSpacing: 0.1,
     height: 1.7,
   );

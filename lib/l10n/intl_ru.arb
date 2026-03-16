@@ -11,5 +11,9 @@
   "emailHint": "Введите вашу почту",
   "@emailHint": {},
   "passwordHint": "Введите пароль",
-  "@passwordHint": {}
+  "@passwordHint": {},
+  "signUp": "Зарегистрироваться",
+  "@signUp": {},
+  "alreadyHaveAccount": "Уже есть аккаунт?",
+  "@alreadyHaveAccount": {}
 }

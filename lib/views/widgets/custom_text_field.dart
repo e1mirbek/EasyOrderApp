@@ -29,12 +29,16 @@ class CustomTextField extends StatelessWidget {
         disabledBorder: InputBorder.none,
         labelText: labelText,
         labelStyle: AppTextStyles.inputLabel,
-        prefixIcon: Image.asset(
-          prefixIcon,
-          height: AppSizes.fieldIconSize,
-          width: AppSizes.fieldIconSize,
+        prefixIcon: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(
+            prefixIcon,
+            height: AppSizes.fieldIconSize,
+            width: AppSizes.fieldIconSize,
+          ),
         ),
         suffixIcon: suffixIcon,
+        prefixIconConstraints: BoxConstraints(minHeight: 40.0, minWidth: 40.0),
       ),
     );
   }

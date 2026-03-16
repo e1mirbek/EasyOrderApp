@@ -15,7 +15,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: const Locale('ru'),
+      debugShowCheckedModeBanner: false,
+      locale: const Locale('ky'),
       theme: AppTheme.lightTheme,
       localizationsDelegates: const [
         S.delegate,

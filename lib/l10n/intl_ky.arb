@@ -11,5 +11,9 @@
   "emailHint": "Электрондук почтаңызды киргизиңиз",
   "@emailHint": {},
   "passwordHint": "Сырсөздү киргизиңиз",
-  "@passwordHint": {}
+  "@passwordHint": {},
+  "signUp": "Катталуу",
+  "@signUp": {},
+  "alreadyHaveAccount": "Аккаунтуңуз барбы?",
+  "@alreadyHaveAccount": {}
 }

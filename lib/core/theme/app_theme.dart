@@ -33,7 +33,7 @@ class AppTheme {
       /// button
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.buttonBlue,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
         ),
       ),

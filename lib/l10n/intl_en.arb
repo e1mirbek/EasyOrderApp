@@ -15,5 +15,13 @@
   "passwordHint": "Enter your password",
   "@passwordHint": {
     "description": "Placeholder text for password input field"
+  },
+  "signUp": "Sign up",
+  "@signUp": {
+    "description": "Button text for creating a new account"
+  },
+  "alreadyHaveAccount": "Already have an account?",
+  "@alreadyHaveAccount": {
+    "description": "Text shown on auth screen asking if user already has an account"
   }
 }

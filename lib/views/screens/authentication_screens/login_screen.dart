@@ -1,8 +1,14 @@
+// ignore: unused_import
+import 'dart:developer' as dev;
+
 import 'package:easy_order/core/constants/app_assets.dart';
 import 'package:easy_order/core/constants/app_sizes.dart';
+import 'package:easy_order/core/theme/app_colors.dart';
 import 'package:easy_order/core/theme/app_text_styles.dart';
 import 'package:easy_order/generated/l10n.dart';
+import 'package:easy_order/views/widgets/custom_button.dart';
 import 'package:easy_order/views/widgets/labeled_text_field.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -61,6 +67,35 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           obscureText: _isObscure,
+                        ),
+                        const SizedBox(height: AppSizes.spaceMedium),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10.0,
+                            horizontal: 25.0,
+                          ),
+                          child: CustomButton(
+                            onPressed: () => dev.log('open the page'),
+                            title: S.of(context).signUp,
+                          ),
+                        ),
+                        const SizedBox(height: AppSizes.spaceSmall),
+                        Text.rich(
+                          TextSpan(
+                            text: S.of(context).alreadyHaveAccount,
+                            style: AppTextStyles.subtitle,
+                            children: [
+                              TextSpan(
+                                text: S.of(context).signUp,
+                                style: AppTextStyles.subtitle.copyWith(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => dev.log('open the page'),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

@@ -1,12 +1,19 @@
 import 'package:easy_order/core/theme/app_theme.dart';
 import 'package:easy_order/generated/l10n.dart';
+import 'package:easy_order/logic/providers/language_provider.dart';
 import 'package:easy_order/views/screens/authentication_screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => LanguageProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,9 +21,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final languageController = Provider.of<LanguageProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      locale: const Locale('ky'),
+      locale: languageController.appLocale,
       theme: AppTheme.lightTheme,
       localizationsDelegates: const [
         S.delegate,
@@ -24,7 +32,11 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [Locale('ru', ''), Locale('en', ''), Locale('ky', '')],
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('ru', ''),
+        Locale('ky', ''),
+      ],
       home: const LoginScreen(),
     );
   }

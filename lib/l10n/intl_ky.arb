@@ -15,5 +15,7 @@
   "signUp": "Катталуу",
   "@signUp": {},
   "alreadyHaveAccount": "Аккаунтуңуз барбы?",
-  "@alreadyHaveAccount": {}
+  "@alreadyHaveAccount": {},
+  "languageName": "Кыргызча",
+  "@languageName": {}
 }

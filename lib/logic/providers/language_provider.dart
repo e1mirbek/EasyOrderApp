@@ -12,10 +12,10 @@ class LanguageProvider extends ChangeNotifier {
   /// - 'en' → English
   /// - any other value → Kyrgyz (default)
 
-  void changeLanguage(String type) {
-    if (type == 'ru') {
+  void changeLanguage() {
+    if (_appLocale.languageCode == 'en') {
       _appLocale = const Locale('ru');
-    } else if (type == 'ky') {
+    } else if (_appLocale.languageCode == 'ru') {
       _appLocale = const Locale('ky');
     } else {
       _appLocale = const Locale('en');

@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "emailHint": MessageLookupByLibrary.simpleMessage("Enter your email"),
     "emailLabel": MessageLookupByLibrary.simpleMessage("Email"),
+    "languageName": MessageLookupByLibrary.simpleMessage("English"),
     "loginSubtitle": MessageLookupByLibrary.simpleMessage(
       "Discover exclusive global deals.",
     ),

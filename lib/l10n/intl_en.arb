@@ -23,5 +23,7 @@
   "alreadyHaveAccount": "Already have an account?",
   "@alreadyHaveAccount": {
     "description": "Text shown on auth screen asking if user already has an account"
-  }
+  },
+  "languageName": "English",
+  "@languageName": {}
 }

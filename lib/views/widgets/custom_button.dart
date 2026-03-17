@@ -10,10 +10,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.all(15.0),
-        foregroundColor: AppColors.white,
-      ),
+      style: ElevatedButton.styleFrom(foregroundColor: AppColors.white),
       onPressed: onPressed,
       child: Center(child: Text(title, style: AppTextStyles.buttontitle)),
     );

@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Электрондук почтаңызды киргизиңиз",
     ),
     "emailLabel": MessageLookupByLibrary.simpleMessage("Электрондук почта"),
+    "languageName": MessageLookupByLibrary.simpleMessage("Кыргызча"),
     "loginSubtitle": MessageLookupByLibrary.simpleMessage(
       "Дүйнөлүк өзгөчө сунуштарды өзүңүз үчүн ачыңыз.",
     ),

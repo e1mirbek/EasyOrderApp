@@ -3,13 +3,15 @@ import 'dart:developer' as dev;
 
 import 'package:easy_order/core/constants/app_assets.dart';
 import 'package:easy_order/core/constants/app_sizes.dart';
-import 'package:easy_order/core/theme/app_colors.dart';
-import 'package:easy_order/core/theme/app_text_styles.dart';
 import 'package:easy_order/generated/l10n.dart';
+import 'package:easy_order/logic/providers/language_provider.dart';
+import 'package:easy_order/views/screens/authentication_screens/widgets/account_query_row.dart';
+import 'package:easy_order/views/screens/authentication_screens/widgets/welcome_Illustration.dart';
+import 'package:easy_order/views/screens/authentication_screens/widgets/header_section.dart';
 import 'package:easy_order/views/widgets/custom_button.dart';
 import 'package:easy_order/views/screens/authentication_screens/widgets/labeled_text_field.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,9 +38,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildHeader(context),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CustomButton(
+                              onPressed: () => context
+                                  .read<LanguageProvider>()
+                                  .changeLanguage(),
+                              title: S.of(context).languageName,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSizes.spaceMedium),
+                        HeaderSection(
+                          loginTitle: S.of(context).loginSubtitle,
+                          loginSubtitle: S.of(context).loginSubtitle,
+                        ),
                         const SizedBox(height: AppSizes.spaceSmall),
-                        _buildIllustration(),
+                        const WelcomeIllustration(
+                          welcomeImgIllu: AppAssets.welcomeIllu,
+                        ),
                         const SizedBox(height: AppSizes.spaceSmall),
 
                         /// email block
@@ -69,6 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: _isObscure,
                         ),
                         const SizedBox(height: AppSizes.spaceMedium),
+
+                        /// sing in block
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             vertical: 10.0,
@@ -80,22 +101,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: AppSizes.spaceSmall),
-                        Text.rich(
-                          TextSpan(
-                            text: S.of(context).alreadyHaveAccount,
-                            style: AppTextStyles.subtitle,
-                            children: [
-                              TextSpan(
-                                text: S.of(context).signUp,
-                                style: AppTextStyles.subtitle.copyWith(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () => dev.log('open the page'),
-                              ),
-                            ],
-                          ),
+
+                        /// register block
+                        AccountQueryRow(
+                          text: S.of(context).alreadyHaveAccount,
+                          linkText: S.of(context).signUp,
                         ),
                       ],
                     ),
@@ -106,28 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
           },
         ),
       ),
-    );
-  }
-
-  Widget _buildIllustration() {
-    return Image.asset(
-      AppAssets.welcomeIllu,
-      height: AppSizes.welcomeImageSize,
-      width: AppSizes.welcomeImageSize,
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Column(
-      children: [
-        Text(S.of(context).loginTitle, style: AppTextStyles.title),
-        const SizedBox(height: AppSizes.spaceSmall),
-        Text(
-          S.of(context).loginSubtitle,
-          style: AppTextStyles.subtitle,
-          textAlign: TextAlign.center,
-        ),
-      ],
     );
   }
 }

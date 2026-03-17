@@ -13,6 +13,7 @@ import 'package:easy_order/views/screens/authentication_screens/widgets/header_s
 import 'package:easy_order/views/widgets/custom_button.dart';
 import 'package:easy_order/views/screens/authentication_screens/widgets/labeled_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -47,33 +48,70 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             PopupMenuButton<Locale>(
                               initialValue: currentLocale,
-                              child: Container(
-                                padding: EdgeInsets.all(15.0),
-                                decoration: BoxDecoration(
-                                  color: AppColors.buttonBlue,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    S.of(context).languageName,
-                                    style: AppTextStyles.buttontitle,
-                                  ),
-                                ),
-                              ),
                               onSelected: (Locale locale) {
                                 provider.setLanguage(locale);
                               },
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 12,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.buttonBlue,
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.15),
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.language,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      S.of(context).languageName,
+                                      style: AppTextStyles.buttontitle,
+                                    ),
+                                    const SizedBox(width: 6),
+                                    const Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ),
                               itemBuilder: (context) => [
-                                const PopupMenuItem(
-                                  value: Locale('en'),
-                                  child: Text('English'),
+                                _buildLanguageItem(
+                                  locale: const Locale('en'),
+                                  title: 'English',
+                                  icon: AppAssets.isFlagEn,
+                                  isSelected:
+                                      currentLocale.languageCode == 'en',
                                 ),
-                                const PopupMenuItem(
-                                  value: Locale('ru'),
-                                  child: Text('Русский'),
+                                _buildLanguageItem(
+                                  locale: const Locale('ru'),
+                                  title: 'Русский',
+                                  icon: AppAssets.isFlagRu,
+                                  isSelected:
+                                      currentLocale.languageCode == 'ru',
                                 ),
-                                const PopupMenuItem(
-                                  value: Locale('ky'),
-                                  child: Text('Кыргызсча'),
+                                _buildLanguageItem(
+                                  locale: const Locale('ky'),
+                                  title: 'Кыргызсча',
+                                  icon: AppAssets.isFlagKy,
+                                  isSelected:
+                                      currentLocale.languageCode == 'ky',
                                 ),
                               ],
                             ),
@@ -144,6 +182,48 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  PopupMenuItem<Locale> _buildLanguageItem({
+    required Locale locale,
+    required String title,
+    required String icon,
+    required bool isSelected,
+  }) {
+    return PopupMenuItem(
+      value: locale,
+      padding: EdgeInsets.zero,
+      child: Container(
+        margin: EdgeInsets.all(AppSizes.spaceMedium),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? Colors.blue.withOpacity(0.08)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            SvgPicture.asset(icon, height: 22, width: 22),
+
+            const SizedBox(width: 12),
+
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                ),
+              ),
+            ),
+
+            if (isSelected)
+              const Icon(Icons.check, color: Colors.blue, size: 18),
+          ],
         ),
       ),
     );

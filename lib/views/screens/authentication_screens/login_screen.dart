@@ -7,7 +7,7 @@ import 'package:easy_order/core/theme/app_colors.dart';
 import 'package:easy_order/core/theme/app_text_styles.dart';
 import 'package:easy_order/generated/l10n.dart';
 import 'package:easy_order/views/widgets/custom_button.dart';
-import 'package:easy_order/views/widgets/labeled_text_field.dart';
+import 'package:easy_order/views/screens/authentication_screens/widgets/labeled_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

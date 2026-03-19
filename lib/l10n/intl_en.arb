@@ -4,6 +4,10 @@
   "@loginTitle": {},
   "loginSubtitle": "Discover exclusive global deals.",
   "@loginSubtitle": {},
+  "registerTitle": "Create your account",
+  "@registerTitle": {},
+  "registerSubTitle": "Join us and start using the app",
+  "@registerSubTitle": {},
   "emailLabel": "Email",
   "@emailLabel": {},
   "passwordLabel": "Password",
@@ -12,9 +16,21 @@
   "@emailHint": {
     "description": "Placeholder text for email input field"
   },
+  "fullNameLabel": "Full Name",
+  "@fullNameLabel": {
+    "description": "Label for full name input field"
+  },
+  "fullNameHint": "Enter your full name",
+  "@fullNameHint": {
+    "description": "Placeholder for full name input field"
+  },
   "passwordHint": "Enter your password",
   "@passwordHint": {
     "description": "Placeholder text for password input field"
+  },
+  "signIn": "Sign in",
+  "@signIn": {
+    "description": "Button text for user login"
   },
   "signUp": "Sign up",
   "@signUp": {

@@ -53,5 +53,9 @@
   "fullNameRequired": "Please enter your full name",
   "@fullNameRequired": {},
   "fullNameTooShort": "Name must be at least 2 characters",
-  "@fullNameTooShort": {}
+  "@fullNameTooShort": {},
+  "onlyLettersName": "Only letters allowed",
+  "@onlyLettersName": {
+    "description": "Validation message when input should contain only letters"
+  }
 }

@@ -39,5 +39,7 @@
   "fullNameRequired": "Введите полное имя",
   "@fullNameRequired": {},
   "fullNameTooShort": "Имя должно содержать минимум 2 символа",
-  "@fullNameTooShort": {}
+  "@fullNameTooShort": {},
+  "onlyLettersName": "Только буквы",
+  "@onlyLettersName": {}
 }

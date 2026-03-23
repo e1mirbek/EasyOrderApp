@@ -39,5 +39,7 @@
   "fullNameRequired": "Толук аты-жөнүңүздү киргизиңиз",
   "@fullNameRequired": {},
   "fullNameTooShort": "Аты кеминде 2 белгиден турушу керек",
-  "@fullNameTooShort": {}
+  "@fullNameTooShort": {},
+  "onlyLettersName": "Тамгалар гана",
+  "@onlyLettersName": {}
 }

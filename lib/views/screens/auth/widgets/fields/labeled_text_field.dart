@@ -10,6 +10,7 @@ class LabeledTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool obscureText;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
   const LabeledTextField({
     super.key,
     required this.label,
@@ -18,6 +19,7 @@ class LabeledTextField extends StatelessWidget {
     this.suffixIcon,
     this.obscureText = false,
     this.validator,
+    this.onChanged,
   });
 
   @override
@@ -28,6 +30,7 @@ class LabeledTextField extends StatelessWidget {
         Text(label, style: AppTextStyles.fieldLabel),
         const SizedBox(height: AppSizes.spaceSmall),
         CustomTextField(
+          onChanged: onChanged,
           validator: validator,
           labelText: hintText,
           prefixIcon: prefixIcon,

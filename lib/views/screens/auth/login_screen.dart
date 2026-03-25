@@ -5,16 +5,18 @@ import 'package:easy_order/core/constants/app_routes.dart';
 import 'package:easy_order/core/constants/app_sizes.dart';
 import 'package:easy_order/core/utils/app_validator.dart';
 import 'package:easy_order/generated/l10n.dart';
-import 'package:easy_order/views/screens/authentication_screens/widgets/account_query_row.dart';
-import 'package:easy_order/views/screens/authentication_screens/widgets/language_selector/language_selector.dart';
-import 'package:easy_order/views/screens/authentication_screens/widgets/header/welcome_Illustration.dart';
-import 'package:easy_order/views/screens/authentication_screens/widgets/header/header_section.dart';
+import 'package:easy_order/views/screens/auth/widgets/account_query_row.dart';
+import 'package:easy_order/views/screens/auth/widgets/language_selector/language_selector.dart';
+import 'package:easy_order/views/screens/auth/widgets/header/welcome_Illustration.dart';
+import 'package:easy_order/views/screens/auth/widgets/header/header_section.dart';
 import 'package:easy_order/views/widgets/custom_button.dart';
-import 'package:easy_order/views/screens/authentication_screens/widgets/fields/labeled_text_field.dart';
+import 'package:easy_order/views/screens/auth/widgets/fields/labeled_text_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  late String email;
+  late String password;
   LoginScreen({super.key});
 
   @override
@@ -54,6 +56,7 @@ class LoginScreen extends StatelessWidget {
                           const SizedBox(height: AppSizes.spaceSmall),
                           // --- FORM FIELDS ---
                           LabeledTextField(
+                            onChanged: (value) => email = value,
                             validator: (value) =>
                                 AppValidator.validateEmail(value, context),
                             label: S.of(context).emailLabel,
@@ -65,6 +68,7 @@ class LoginScreen extends StatelessWidget {
                             valueListenable: isObscureNotifier,
                             builder: (context, isObscure, child) {
                               return LabeledTextField(
+                                onChanged: (value) => password = value,
                                 validator: (value) =>
                                     AppValidator.validatePassword(
                                       value,
@@ -75,7 +79,11 @@ class LoginScreen extends StatelessWidget {
                                 prefixIcon: AppAssets.passwordIcon,
                                 suffixIcon: IconButton(
                                   onPressed: () {
-                                    isObscure = !isObscure;
+                                    isObscureNotifier.value =
+                                        !isObscureNotifier.value;
+                                    dev.log(
+                                      'Password visibility toggled: $isObscureNotifier',
+                                    );
                                   },
                                   icon: Icon(
                                     isObscure
@@ -99,6 +107,8 @@ class LoginScreen extends StatelessWidget {
                               onPressed: () {
                                 if (_formkey.currentState!.validate()) {
                                   dev.log('success');
+                                  dev.log('email: $email');
+                                  dev.log('password: $password');
                                 }
                               },
                               title: S.of(context).signUp,

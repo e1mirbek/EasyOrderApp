@@ -1,33 +1,29 @@
+import 'package:easy_order/controllers/local_provider.dart';
 import 'package:easy_order/core/constants/app_routes.dart';
 import 'package:easy_order/core/theme/app_theme.dart';
 import 'package:easy_order/firebase_options.dart';
 import 'package:easy_order/generated/l10n.dart';
-import 'package:easy_order/controllers/providers/language_provider.dart';
 import 'package:easy_order/views/screens/auth/login_screen.dart';
 import 'package:easy_order/views/screens/auth/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(
-    MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => LanguageProvider())],
-      child: const MyApp(),
-    ),
-  );
+  runApp(ProviderScope(child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final languageController = Provider.of<LanguageProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final languageController = Provider.of<LanguageProvider>(context);
+    final locale = ref.watch(localControllerProvider);
     return MaterialApp(
       // --- Основные настройки ---
       title: 'Easy Order',
@@ -40,7 +36,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.register: (context) => RegisterScreen(),
       },
       // --- Локализация ---
-      locale: languageController.appLocale,
+      locale: locale,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -1,25 +1,23 @@
+import 'package:easy_order/controllers/local_provider.dart';
 import 'package:easy_order/core/constants/app_assets.dart';
 import 'package:easy_order/core/constants/app_sizes.dart';
 import 'package:easy_order/core/theme/app_colors.dart';
 import 'package:easy_order/core/theme/app_text_styles.dart';
 import 'package:easy_order/generated/l10n.dart';
-import 'package:easy_order/controllers/providers/language_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
-class LanguageSelector extends StatelessWidget {
+class LanguageSelector extends ConsumerWidget {
   const LanguageSelector({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final provider = context.watch<LanguageProvider>();
-    final currentLocale = provider.appLocale;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentLocale = ref.watch(localControllerProvider);
     return PopupMenuButton<Locale>(
       initialValue: currentLocale,
-      onSelected: (Locale locale) {
-        provider.setLanguage(locale);
-      },
+      onSelected: (Locale locale) =>
+          ref.read(localControllerProvider.notifier).setLocale(locale),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: _buildSelectorButton(context),
       itemBuilder: (context) => [

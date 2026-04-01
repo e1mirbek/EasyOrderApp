@@ -1,8 +1,8 @@
-import 'package:easy_order/providers/local_provider.dart';
 import 'package:easy_order/core/constants/app_assets.dart';
 import 'package:easy_order/core/constants/app_sizes.dart';
 import 'package:easy_order/core/theme/app_colors.dart';
 import 'package:easy_order/core/theme/app_text_styles.dart';
+import 'package:easy_order/features/settings/controllers/local_controller.dart';
 import 'package:easy_order/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

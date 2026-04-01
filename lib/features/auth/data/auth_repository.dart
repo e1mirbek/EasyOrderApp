@@ -27,11 +27,7 @@ class AuthRepository {
 
   // Метод регистрации (только логика данных)
 
-  Future<void> signUp(
-    String email,
-    String fullName,
-    String password,
-  ) async {
+  Future<void> signUp(String email, String fullName, String password) async {
     try {
       // Регистрация в Auth
       UserCredential userCredential = await _auth
@@ -59,5 +55,21 @@ class AuthRepository {
     } catch (e) {
       throw 'An unexpected error occurred';
     }
+  }
+
+  // Метод для входа (логин)
+  Future<void> signIn(String email, String password) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      throw e.message ?? 'An error occurred';
+    } catch (e) {
+      throw 'An unexpected error occurred';
+    }
+  }
+
+  // Метод для выхода (логаут)
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }

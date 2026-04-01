@@ -1,11 +1,11 @@
 // ignore: unused_import
 import 'dart:developer' as dev;
-import 'package:easy_order/features/auth/controllers/auth_controller.dart';
 import 'package:easy_order/core/constants/app_assets.dart';
 import 'package:easy_order/core/constants/app_routes.dart';
 import 'package:easy_order/core/constants/app_sizes.dart';
 import 'package:easy_order/core/theme/app_colors.dart';
 import 'package:easy_order/core/utils/app_validator.dart';
+import 'package:easy_order/features/auth/controllers/auth_controller.dart';
 import 'package:easy_order/generated/l10n.dart';
 import 'package:easy_order/features/auth/widgets/account_query_row.dart';
 import 'package:easy_order/features/auth/widgets/language_selector/language_selector.dart';
@@ -16,21 +16,19 @@ import 'package:easy_order/features/auth/widgets/fields/labeled_text_field.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegisterScreen extends ConsumerStatefulWidget {
-  const RegisterScreen({super.key});
+class LoginScreen extends ConsumerStatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends ConsumerState<RegisterScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-  final AuthController authController = AuthController();
-
   String email = '';
+
   String password = '';
-  String fullName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +47,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         },
       );
     });
-
-    final ValueNotifier<bool> isObscureNotifier = ValueNotifier<bool>(true);
-
+    ValueNotifier<bool> isObscureNotifier = ValueNotifier<bool>(true);
     return Scaffold(
       body: SafeArea(
         child: LayoutBuilder(
@@ -70,14 +66,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           // --- LANGUAGE SELECTION ---
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
-                            children: [const LanguageSelector()],
+                            children: [LanguageSelector()],
                           ),
 
                           // --- HEADER & ILLUSTRATION ---
                           const SizedBox(height: AppSizes.spaceLarge),
                           HeaderSection(
-                            title: S.of(context).registerTitle,
-                            subtitle: S.of(context).registerSubTitle,
+                            title: S.of(context).loginSubtitle,
+                            subtitle: S.of(context).loginSubtitle,
                           ),
                           const SizedBox(height: AppSizes.spaceSmall),
                           const WelcomeIllustration(
@@ -94,15 +90,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             prefixIcon: AppAssets.emaiIcon,
                           ),
                           const SizedBox(height: AppSizes.spaceSmall),
-                          LabeledTextField(
-                            onChanged: (value) => fullName = value,
-                            validator: (value) =>
-                                AppValidator.validateName(value, context),
-                            label: S.of(context).fullNameLabel,
-                            hintText: S.of(context).fullNameHint,
-                            prefixIcon: AppAssets.userIcon,
-                          ),
-                          const SizedBox(height: AppSizes.spaceSmall),
                           ValueListenableBuilder(
                             valueListenable: isObscureNotifier,
                             builder: (context, isObscure, child) {
@@ -117,8 +104,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                 hintText: S.of(context).passwordHint,
                                 prefixIcon: AppAssets.passwordIcon,
                                 suffixIcon: IconButton(
-                                  onPressed: () => isObscureNotifier.value =
-                                      !isObscureNotifier.value,
+                                  onPressed: () {
+                                    isObscureNotifier.value =
+                                        !isObscureNotifier.value;
+                                    dev.log(
+                                      'Password visibility toggled: $isObscureNotifier',
+                                    );
+                                  },
                                   icon: Icon(
                                     isObscure
                                         ? Icons.visibility_outlined
@@ -138,13 +130,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                               horizontal: 25.0,
                             ),
                             child: CustomButton(
-                              onPressed: () async {
+                              onPressed: () {
                                 if (_formkey.currentState!.validate()) {
-                                  await ref
+                                  ref
                                       .read(authControllerProvider.notifier)
-                                      .register(email, password, fullName);
+                                      .login(email, password);
                                   dev.log(
-                                    'Register button pressed with email: $email, fullName: $fullName',
+                                    'Login button pressed with email: $email',
                                   );
                                   dev.log('Current auth state: $authState');
                                 }
@@ -156,10 +148,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           const SizedBox(height: AppSizes.spaceSmall),
                           // --- NAVIGATION LINKS ---
                           AccountQueryRow(
-                            onTap: () =>
-                                Navigator.pushNamed(context, AppRoutes.login),
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              AppRoutes.register,
+                            ),
                             text: S.of(context).alreadyHaveAccount,
-                            linkText: S.of(context).signIn,
+                            linkText: S.of(context).signUp,
                           ),
                         ],
                       ),

@@ -1,19 +1,18 @@
 // ignore: unused_import
 import 'dart:developer' as dev;
-import 'package:easy_order/controllers/auth_controller.dart';
 import 'package:easy_order/core/constants/app_assets.dart';
 import 'package:easy_order/core/constants/app_routes.dart';
 import 'package:easy_order/core/constants/app_sizes.dart';
 import 'package:easy_order/core/theme/app_colors.dart';
 import 'package:easy_order/core/utils/app_validator.dart';
+import 'package:easy_order/features/auth/controllers/auth_controller.dart';
 import 'package:easy_order/generated/l10n.dart';
-import 'package:easy_order/providers/auth_controller_provider.dart';
-import 'package:easy_order/views/screens/auth/widgets/account_query_row.dart';
-import 'package:easy_order/views/screens/auth/widgets/language_selector/language_selector.dart';
-import 'package:easy_order/views/screens/auth/widgets/header/welcome_Illustration.dart';
-import 'package:easy_order/views/screens/auth/widgets/header/header_section.dart';
-import 'package:easy_order/views/widgets/custom_button.dart';
-import 'package:easy_order/views/screens/auth/widgets/fields/labeled_text_field.dart';
+import 'package:easy_order/features/auth/widgets/account_query_row.dart';
+import 'package:easy_order/features/auth/widgets/language_selector/language_selector.dart';
+import 'package:easy_order/features/auth/widgets/header/welcome_Illustration.dart';
+import 'package:easy_order/features/auth/widgets/header/header_section.dart';
+import 'package:easy_order/core/common_widgets/custom_button.dart';
+import 'package:easy_order/features/auth/widgets/fields/labeled_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,10 +24,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-
-  final AuthController authController = AuthController();
 
   String email = '';
 
@@ -36,16 +32,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-  
-     final authState = ref.watch(authControllerProvider);
+    final authState = ref.watch(authControllerProvider);
 
-     // 2. Слушаем ошибки для показа SnackBar
+    // 2. Слушаем ошибки для показа SnackBar
     ref.listen<AsyncValue<void>>(authControllerProvider, (previous, next) {
-      next.whenOrNull(error: (error, _) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.toString()), backgroundColor: AppColors.error),
-        );
-      });
+      next.whenOrNull(
+        error: (error, _) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(error.toString()),
+              backgroundColor: AppColors.error,
+            ),
+          );
+        },
+      );
     });
     ValueNotifier<bool> isObscureNotifier = ValueNotifier<bool>(true);
     return Scaffold(
@@ -132,11 +132,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             child: CustomButton(
                               onPressed: () {
                                 if (_formkey.currentState!.validate()) {
-                                   ref.read(authControllerProvider.notifier).lo
+                                  ref
+                                      .read(authControllerProvider.notifier)
+                                      .login(email, password);
+                                  dev.log(
+                                    'Login button pressed with email: $email',
+                                  );
+                                  dev.log('Current auth state: $authState');
                                 }
                               },
                               title: S.of(context).signUp,
-                              isLoading: isLoading,
+                              isLoading: authState.isLoading,
                             ),
                           ),
                           const SizedBox(height: AppSizes.spaceSmall),

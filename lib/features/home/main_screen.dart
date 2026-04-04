@@ -30,7 +30,7 @@ class MainScreen extends ConsumerWidget {
           data: (data) {
             if (data == null) return const Text('Пользователь не найден');
 
-            final String name = data['fullName'] ?? 'Гость';
+            final String name = data.fullName;
 
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -248,6 +248,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Don’t have an account?`
+  String get dontHaveAccount {
+    return Intl.message(
+      'Don’t have an account?',
+      name: 'dontHaveAccount',
+      desc: 'Text shown on auth screen asking if user does not have an account',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

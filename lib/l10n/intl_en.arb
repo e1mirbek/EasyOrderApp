@@ -57,5 +57,9 @@
   "onlyLettersName": "Only letters allowed",
   "@onlyLettersName": {
     "description": "Validation message when input should contain only letters"
+  },
+  "dontHaveAccount": "Don’t have an account?",
+  "@dontHaveAccount": {
+    "description": "Text shown on auth screen asking if user does not have an account"
   }
 }

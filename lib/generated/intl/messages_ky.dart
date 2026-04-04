@@ -25,6 +25,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Аккаунтуңуз барбы?",
     ),
+    "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "Аккаунтуңуз жокпу?",
+    ),
     "emailHint": MessageLookupByLibrary.simpleMessage(
       "Электрондук почтаңызды киргизиңиз",
     ),

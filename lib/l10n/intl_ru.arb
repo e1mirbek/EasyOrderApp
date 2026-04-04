@@ -41,5 +41,7 @@
   "fullNameTooShort": "Имя должно содержать минимум 2 символа",
   "@fullNameTooShort": {},
   "onlyLettersName": "Только буквы",
-  "@onlyLettersName": {}
+  "@onlyLettersName": {},
+  "dontHaveAccount": "Нет аккаунта?",
+  "@dontHaveAccount": {}
 }

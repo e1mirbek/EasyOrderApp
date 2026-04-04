@@ -25,6 +25,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
     ),
+    "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "Don’t have an account?",
+    ),
     "emailHint": MessageLookupByLibrary.simpleMessage("Enter your email"),
     "emailInvalid": MessageLookupByLibrary.simpleMessage(
       "Please enter a valid email address",

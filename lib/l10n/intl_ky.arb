@@ -41,5 +41,7 @@
   "fullNameTooShort": "Аты кеминде 2 белгиден турушу керек",
   "@fullNameTooShort": {},
   "onlyLettersName": "Тамгалар гана",
-  "@onlyLettersName": {}
+  "@onlyLettersName": {},
+  "dontHaveAccount": "Аккаунтуңуз жокпу?",
+  "@dontHaveAccount": {}
 }

@@ -26,7 +26,6 @@ class AuthRepository {
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
   // Метод регистрации (только логика данных)
-
   Future<void> signUp(String email, String fullName, String password) async {
     try {
       // Регистрация в Auth
@@ -58,13 +57,23 @@ class AuthRepository {
   }
 
   // Метод для входа (логин)
-  Future<void> signIn(String email, String password) async {
+  // ВХОД В СИСТЕМУ
+  Future<UserCredential> signIn(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      // Это стандартный метод Firebase. Он сам ищет юзера в базе.
+      return await _auth.signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password.trim(),
+      );
     } on FirebaseAuthException catch (e) {
-      throw e.message ?? 'An error occurred';
-    } catch (e) {
-      throw 'An unexpected error occurred';
+      // Здесь мы ловим конкретные ошибки от Firebase
+      if (e.code == 'user-not-found') {
+        throw 'Пользователь с таким email не найден';
+      } else if (e.code == 'wrong-password') {
+        throw 'Неверный пароль';
+      } else {
+        throw 'Ошибка входа: ${e.message}';
+      }
     }
   }
 

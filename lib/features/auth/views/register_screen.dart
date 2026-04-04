@@ -26,8 +26,6 @@ class RegisterScreen extends ConsumerStatefulWidget {
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-  final AuthController authController = AuthController();
-
   String email = '';
   String password = '';
   String fullName = '';

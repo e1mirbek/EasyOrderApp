@@ -1,5 +1,6 @@
 import 'package:easy_order/features/auth/data/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 /// AsyncValue - У него есть три состояния «из коробки»:
 
@@ -10,17 +11,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// data: (Данные) — показываем результат.
 ///
 ///
+
 final authControllerProvider =
-    NotifierProvider<AuthController, AsyncValue<void>>(() {
-      return AuthController();
+    StateNotifierProvider<AuthController, AsyncValue<void>>((ref) {
+      return AuthController(ref);
     });
 
-class AuthController extends Notifier<AsyncValue<void>> {
-  @override
-  AsyncValue<void> build() {
-    // Начальное состояние: данных нет, ошибок нет, загрузки нет.
-    return const AsyncValue.data(null);
-  }
+class AuthController extends StateNotifier<AsyncValue<void>> {
+  final Ref ref;
+  AuthController(this.ref) : super(const AsyncValue.data(null));
 
   // Метод для регистрации
   Future<void> register(String email, String password, String fullName) async {
@@ -38,9 +37,10 @@ class AuthController extends Notifier<AsyncValue<void>> {
   Future<void> login(String email, String password) async {
     state = const AsyncLoading();
 
-    state = await AsyncValue.guard(
-      () => ref.read(authRepositoryProvider).signIn(email, password),
-    );
+    state = await AsyncValue.guard(() async {
+      final repo = ref.watch(authRepositoryProvider);
+      await repo.signIn(email, password);
+    });
   }
 
   // Метод для выхода (логаут)

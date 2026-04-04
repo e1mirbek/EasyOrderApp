@@ -29,30 +29,31 @@ class AuthRepository {
   Future<void> signUp(String email, String fullName, String password) async {
     try {
       // Регистрация в Auth
-      UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final String uid = userCredential.user!.uid;
 
       // Запись в FireStore
-      if (userCredential.user != null) {
-        await _firestore
-            .collection('buyers')
-            .doc(userCredential.user!.uid)
-            .set({
-              'fullName': fullName,
-              'profilePicture': '',
-              'uid': userCredential.user!.uid,
-              'pinCode': '',
-              'location': '',
-              'city': '',
-              'state': '',
-              'dateCreated': DateTime.now(),
-            });
-      }
+      await _firestore.collection('buyers').doc(uid).set({
+        'fullName': fullName,
+        'email': email,
+        'profilePicture': '',
+        'uid': uid,
+        'pinCode': '',
+        'location': '',
+        'city': '',
+        'state': '',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
     } on FirebaseAuthException catch (e) {
-      // Прокидываем ошибку дальше в контроллер
-      throw e.message ?? 'An error occurred';
-    } catch (e) {
-      throw 'An unexpected error occurred';
+      // Кастомизируем ошибки для юзера
+      if (e.code == 'email-already-in-use') {
+        throw 'Эта почта уже занята другим пользователем';
+      }
+      throw e.message ?? 'Произошла ошибка при регистрации';
     }
   }
 

@@ -32,6 +32,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   ValueNotifier<bool> isObscureNotifier = ValueNotifier<bool>(true);
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();

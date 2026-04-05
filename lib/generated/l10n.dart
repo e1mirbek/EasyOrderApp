@@ -299,13 +299,13 @@ class S {
     );
   }
 
-  /// `Server error: {code}`
-  String serverError(Object code) {
+  /// `Server error: {errorCode}`
+  String serverError(Object errorCode) {
     return Intl.message(
-      'Server error: $code',
+      'Server error: $errorCode',
       name: 'serverError',
       desc: '',
-      args: [code],
+      args: [errorCode],
     );
   }
 }

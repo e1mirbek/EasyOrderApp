@@ -1,7 +1,6 @@
 // ignore: unused_import
 import 'dart:developer' as dev;
 import 'package:easy_order/core/constants/app_assets.dart';
-import 'package:easy_order/core/constants/app_routes.dart';
 import 'package:easy_order/core/constants/app_sizes.dart';
 import 'package:easy_order/core/theme/app_colors.dart';
 import 'package:easy_order/core/utils/app_validator.dart';
@@ -15,6 +14,7 @@ import 'package:easy_order/core/common_widgets/custom_button.dart';
 import 'package:easy_order/features/auth/widgets/fields/labeled_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -155,8 +155,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         const SizedBox(height: AppSizes.spaceSmall),
                         // --- NAVIGATION LINKS ---
                         AccountQueryRow(
-                          onTap: () =>
-                              Navigator.pushNamed(context, AppRoutes.register),
+                          onTap: () => context.go('/register'),
                           text: S.of(context).dontHaveAccount,
                           linkText: S.of(context).signUp,
                         ),

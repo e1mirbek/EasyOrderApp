@@ -2,6 +2,7 @@ import 'package:easy_order/features/auth/controllers/auth_controller.dart';
 import 'package:easy_order/features/profile/providers/user_provider.dart'; // Импортируй созданный провайдер
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
@@ -20,6 +21,7 @@ class MainScreen extends ConsumerWidget {
             icon: const Icon(Icons.logout),
             onPressed: () {
               ref.read(authControllerProvider.notifier).logout();
+              context.go('/login');
             },
           ),
         ],

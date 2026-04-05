@@ -63,8 +63,17 @@
     "description": "Text shown on auth screen asking if user does not have an account"
   },
   "emailAlreadyInUse": "This email is already in use",
+  "@emailAlreadyInUse": {},
   "userNotFound": "User not found",
+  "@userNotFound": {},
   "wrongPassword": "Incorrect password",
+  "@wrongPassword": {},
   "networkError": "Check your internet connection",
-  "serverError": "Server error: {code}"
+  "@networkError": {},
+  "serverError": "Server error: {errorCode}",
+  "@serverError": {
+    "placeholders": {
+      "errorCode": {}
+    }
+  }
 }

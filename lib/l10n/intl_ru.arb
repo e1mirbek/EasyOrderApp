@@ -43,5 +43,19 @@
   "onlyLettersName": "Только буквы",
   "@onlyLettersName": {},
   "dontHaveAccount": "Нет аккаунта?",
-  "@dontHaveAccount": {}
+  "@dontHaveAccount": {},
+  "emailAlreadyInUse": "Эта почта уже занята",
+  "@emailAlreadyInUse": {},
+  "userNotFound": "Пользователь не найден",
+  "@userNotFound": {},
+  "wrongPassword": "Неверный пароль",
+  "@wrongPassword": {},
+  "networkError": "Проверьте интернет-соединение",
+  "@networkError": {},
+  "serverError": "Ошибка сервера: {code}",
+  "@serverError": {
+    "placeholders": {
+      "code": {}
+    }
+  }
 }

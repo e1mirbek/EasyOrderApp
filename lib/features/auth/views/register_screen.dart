@@ -2,7 +2,6 @@
 import 'dart:developer' as dev;
 import 'package:easy_order/features/auth/controllers/auth_controller.dart';
 import 'package:easy_order/core/constants/app_assets.dart';
-import 'package:easy_order/core/constants/app_routes.dart';
 import 'package:easy_order/core/constants/app_sizes.dart';
 import 'package:easy_order/core/theme/app_colors.dart';
 import 'package:easy_order/core/utils/app_validator.dart';
@@ -15,6 +14,7 @@ import 'package:easy_order/core/common_widgets/custom_button.dart';
 import 'package:easy_order/features/auth/widgets/fields/labeled_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
@@ -26,9 +26,17 @@ class RegisterScreen extends ConsumerStatefulWidget {
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-  String email = '';
-  String password = '';
-  String fullName = '';
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _fullNameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +92,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           const SizedBox(height: AppSizes.spaceSmall),
                           // --- FORM FIELDS ---
                           LabeledTextField(
-                            onChanged: (value) => email = value,
+                            controller: _emailController,
                             validator: (value) =>
                                 AppValidator.validateEmail(value, context),
                             label: S.of(context).emailLabel,
@@ -93,7 +101,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           ),
                           const SizedBox(height: AppSizes.spaceSmall),
                           LabeledTextField(
-                            onChanged: (value) => fullName = value,
+                            controller: _fullNameController,
                             validator: (value) =>
                                 AppValidator.validateName(value, context),
                             label: S.of(context).fullNameLabel,
@@ -105,7 +113,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             valueListenable: isObscureNotifier,
                             builder: (context, isObscure, child) {
                               return LabeledTextField(
-                                onChanged: (value) => password = value,
+                                controller: _passwordController,
                                 validator: (value) =>
                                     AppValidator.validatePassword(
                                       value,
@@ -140,11 +148,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                 if (_formkey.currentState!.validate()) {
                                   await ref
                                       .read(authControllerProvider.notifier)
-                                      .register(email, password, fullName);
-                                  dev.log(
-                                    'Register button pressed with email: $email, fullName: $fullName',
-                                  );
-                                  dev.log('Current auth state: $authState');
+                                      .register(
+                                        _emailController.text.trim(),
+                                        _passwordController.text.trim(),
+                                        _fullNameController.text.trim(),
+                                      );
                                 }
                               },
                               title: S.of(context).signUp,
@@ -154,8 +162,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           const SizedBox(height: AppSizes.spaceSmall),
                           // --- NAVIGATION LINKS ---
                           AccountQueryRow(
-                            onTap: () =>
-                                Navigator.pushNamed(context, AppRoutes.login),
+                            onTap: () => context.go('/login'),
                             text: S.of(context).alreadyHaveAccount,
                             linkText: S.of(context).signIn,
                           ),

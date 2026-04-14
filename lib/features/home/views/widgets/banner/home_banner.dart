@@ -13,6 +13,15 @@ class HomeBanner extends ConsumerStatefulWidget {
 }
 
 class _HomeBannerState extends ConsumerState<HomeBanner> {
+  static const double _bannerHeight = 150.0;
+  static const double _horizontalPadding = 18.0;
+  static const double _verticalPadding = 13.0;
+  static const double _borderRadius = 12.0;
+  static const double _imageWidthFactor = 0.8;
+  static const double _dotSize = 10.0;
+  static const double _dotSpacing = 5.0;
+  static const Duration _dotAnimationDuration = Duration(milliseconds: 300);
+
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
@@ -25,17 +34,21 @@ class _HomeBannerState extends ConsumerState<HomeBanner> {
   @override
   Widget build(BuildContext context) {
     final banner = ref.watch(bannerProvider);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final bannerWidth = screenWidth * _imageWidthFactor;
+
     return banner.when(
       data: (images) {
         if (images.isEmpty) {
-          return const SizedBox();
+          return const SizedBox.shrink();
         }
 
         return Column(
           children: [
             SizedBox(
-              height: 150.0,
+              height: _bannerHeight,
               child: PageView.builder(
+                controller: _pageController,
                 onPageChanged: (value) {
                   setState(() {
                     _currentPage = value;
@@ -46,22 +59,20 @@ class _HomeBannerState extends ConsumerState<HomeBanner> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 18.0,
-                      vertical: 13.0,
+                      horizontal: _horizontalPadding,
+                      vertical: _verticalPadding,
                     ),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(_borderRadius),
                       child: CachedNetworkImage(
-                        width:
-                            MediaQuery.of(context).size.width *
-                            0.8, // Примерно 80% экрана
+                        width: bannerWidth,
                         imageUrl: images[index],
                         fit: BoxFit.cover,
                         placeholder: (context, url) => Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
+                          width: bannerWidth,
                           decoration: BoxDecoration(
                             color: AppColors.grey200,
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(_borderRadius),
                           ),
                         ),
                         errorWidget: (context, url, error) =>
@@ -83,7 +94,19 @@ class _HomeBannerState extends ConsumerState<HomeBanner> {
         );
       },
       error: (error, stackTrace) {
-        return Center(child: Text('Error: $error'));
+        return Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Не удалось загрузить баннеры'),
+              TextButton.icon(
+                onPressed: () => ref.invalidate(bannerProvider),
+                icon: const Icon(Icons.refresh),
+                label: const Text('Повторить'),
+              ),
+            ],
+          ),
+        );
       },
       loading: () {
         return Center(
@@ -99,10 +122,10 @@ class _HomeBannerState extends ConsumerState<HomeBanner> {
 
   Widget _buildDot(bool isActive) {
     return AnimatedContainer(
-      height: 10.0,
-      width: 10.0,
-      margin: EdgeInsets.symmetric(horizontal: 5.0),
-      duration: Duration(milliseconds: 300),
+      height: _dotSize,
+      width: _dotSize,
+      margin: const EdgeInsets.symmetric(horizontal: _dotSpacing),
+      duration: _dotAnimationDuration,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: isActive ? AppColors.buttonBlue : AppColors.white,

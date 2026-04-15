@@ -14,7 +14,10 @@ class BannerRepository {
 
   Future<List<String>> fetchBanners() async {
     try {
-      final snapshot = await _firestore.collection('banners').get();
+      final snapshot = await _firestore
+          .collection('banners')
+          .orderBy('priority', descending: true)
+          .get();
 
       // Превращаем документы в список строк (URL картинок)
       return snapshot.docs.map((doc) => doc['image'] as String).toList();
